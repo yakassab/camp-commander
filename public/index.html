@@ -3,87 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Camp Commander - Activity Management</title>
+  <title>Camp Commander - Home</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-  <header>
-    <div class="header-container">
-      <h1><i class="fas fa-campground"></i> Camp Commander</h1>
-      <nav>
-        <ul>
-          <li><a href="/" class="active">Activities</a></li>
-          <li><a href="#">Schedule</a></li>
-          <li><a href="#">About</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+  <!-- Navbar will be loaded here by JavaScript -->
+  <header></header>
 
   <main>
-    <section class="hero camp-hero">
+    <section class="hero main-hero">
       <div class="hero-content">
-        <h1>Camp Activities Management</h1>
-        <p>Create, manage, and organize your camp activities with ease</p>
+        <h1>Welcome to Camp Commander</h1>
+        <p>Your comprehensive solution for managing summer camp operations</p>
       </div>
     </section>
 
-    <section class="activity-management">
-      <div class="section-header">
-        <h2>Camp Activities</h2>
-        <button id="add-activity-btn" class="cta-button"><i class="fas fa-plus"></i> Add New Activity</button>
-      </div>
-      
-      <div id="activity-form-container" class="form-container" style="display: none;">
-        <h3>Add New Activity</h3>
-        <form id="activity-form">
-          <div class="form-group">
-            <label for="name">Activity Name</label>
-            <input type="text" id="name" name="name" required>
+    <section class="home-content">
+      <div class="container">
+        <h2>Camp Management Made Easy</h2>
+        <p>Camp Commander is a complete management system designed specifically for summer camps and outdoor programs.</p>
+        
+        <div class="features-grid">
+          <div class="feature-card">
+            <i class="fas fa-tasks"></i>
+            <h3>Activity Planning</h3>
+            <p>Create and organize camp activities with our intuitive management tools.</p>
+            <a href="/activities.html" class="btn">Manage Activities</a>
           </div>
           
-          <div class="form-group">
-            <label for="description">Description</label>
-            <textarea id="description" name="description" rows="3" required></textarea>
+          <div class="feature-card">
+            <i class="fas fa-calendar-alt"></i>
+            <h3>Scheduling</h3>
+            <p>Efficiently plan your camp schedule to maximize fun and learning.</p>
+            <a href="#" class="btn">View Schedule</a>
           </div>
           
-          <div class="form-row">
-            <div class="form-group">
-              <label for="duration">Duration (minutes)</label>
-              <input type="number" id="duration" name="duration" min="15" step="15" required>
-            </div>
-            
-            <div class="form-group">
-              <label for="ageGroup">Age Group</label>
-              <select id="ageGroup" name="ageGroup" required>
-                <option value="">Select an age group</option>
-                <option value="5-7">5-7 years</option>
-                <option value="8-10">8-10 years</option>
-                <option value="11-13">11-13 years</option>
-                <option value="14-16">14-16 years</option>
-                <option value="All Ages">All Ages</option>
-              </select>
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <label for="location">Location</label>
-            <input type="text" id="location" name="location" required>
-          </div>
-          
-          <div class="form-actions">
-            <button type="button" id="cancel-btn" class="secondary-btn">Cancel</button>
-            <button type="submit" class="primary-btn">Save Activity</button>
-          </div>
-        </form>
-      </div>
-      
-      <div class="activities-container">
-        <div id="activities-list">
-          <!-- Activities will be loaded here dynamically -->
-          <div class="loading-spinner">
-            <i class="fas fa-spinner fa-spin"></i> Loading activities...
+          <div class="feature-card">
+            <i class="fas fa-info-circle"></i>
+            <h3>Learn More</h3>
+            <p>Discover how Camp Commander can transform your camp management.</p>
+            <a href="#" class="btn">About Us</a>
           </div>
         </div>
       </div>
@@ -91,25 +51,6 @@
   </main>
 
   <footer>
-    <div class="footer-content">
-      <div class="footer-info">
-        <h3><i class="fas fa-campground"></i> Camp Commander</h3>
-        <p>Your comprehensive camp management solution</p>
-      </div>
-      <div class="footer-links">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="/">Activities</a></li>
-          <li><a href="#">Schedule</a></li>
-          <li><a href="#">About</a></li>
-        </ul>
-      </div>
-      <div class="footer-contact">
-        <h4>Contact Us</h4>
-        <p><i class="fas fa-envelope"></i> info@campcommander.com</p>
-        <p><i class="fas fa-phone"></i> (555) 123-4567</p>
-      </div>
-    </div>
     <div class="footer-bottom">
       <p>&copy; 2025 Camp Commander. All rights reserved.</p>
     </div>

@@ -48,6 +48,38 @@ function checkAuthStatus() {
   }
 }
 
+// Load navbar component
+async function loadNavbar() {
+  try {
+    const headerElement = document.querySelector('header');
+    if (!headerElement) return;
+    
+    const response = await fetch('components/navbar.html');
+    const html = await response.text();
+    
+    headerElement.outerHTML = html;
+    
+    // Set active page based on current URL
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    
+    // Remove any existing active classes
+    document.querySelectorAll('nav ul li a').forEach(link => {
+      link.classList.remove('active');
+    });
+    
+    // Set active class for current page
+    if (currentPage === 'index.html' || currentPage === '') {
+      document.getElementById('nav-home').classList.add('active');
+    } else if (currentPage === 'activities.html') {
+      document.getElementById('nav-activities').classList.add('active');
+    } else if (currentPage === 'schedules.html') {
+      document.getElementById('nav-schedules').classList.add('active');
+    }
+  } catch (error) {
+    console.error('Error loading navbar:', error);
+  }
+}
+
 // Load featured products
 async function loadFeaturedProducts() {
   try {
@@ -259,6 +291,10 @@ async function handleLoginSuccess(token, isAdmin) {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
+  // Load navbar component
+  loadNavbar();
+  
+  // Check auth status after navbar loads
   checkAuthStatus();
   
   // Check for featured products container on the index page
