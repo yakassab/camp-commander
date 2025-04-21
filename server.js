@@ -60,6 +60,38 @@ mongoose.connect(process.env.MONGODB_URI)
     process.exit(1);
   });
 
+// Define Activity model schema
+const activitySchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  duration: {
+    type: Number,
+    required: true
+  },
+  ageGroup: {
+    type: String,
+    required: true
+  },
+  location: {
+    type: String,
+    required: true
+  },
+  dateCreated: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+// Create Activity model
+const Activity = mongoose.model('Activity', activitySchema);
+
 // Add mock middleware for auth protection
 // In a real app, you would implement proper authentication
 app.use((req, res, next) => {
@@ -81,13 +113,68 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// API Routes
-app.use('/api/activities', require('./routes/activities'));
-app.use('/api/schedule', require('./routes/schedules'));
+// API Routes for Activities
+// GET all activities
+app.get('/api/activities', async (req, res) => {
+  try {
+    const activities = await Activity.find().sort({ dateCreated: -1 });
+    res.json(activities);
+  } catch (err) {
+    console.error('Error fetching activities:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
-// Web Interface Routes (for rendered views)
-app.use('/activities', require('./routes/activities'));
-app.use('/schedule', require('./routes/schedules'));
+// POST new activity
+app.post('/api/activities', async (req, res) => {
+  try {
+    const { name, description, duration, ageGroup, location } = req.body;
+    
+    // Create new activity
+    const newActivity = new Activity({
+      name,
+      description,
+      duration,
+      ageGroup,
+      location
+    });
+    
+    // Save to database
+    const savedActivity = await newActivity.save();
+    res.status(201).json(savedActivity);
+  } catch (err) {
+    console.error('Error creating activity:', err);
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// GET single activity
+app.get('/api/activities/:id', async (req, res) => {
+  try {
+    const activity = await Activity.findById(req.params.id);
+    if (!activity) {
+      return res.status(404).json({ message: 'Activity not found' });
+    }
+    res.json(activity);
+  } catch (err) {
+    console.error('Error fetching activity:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// DELETE activity
+app.delete('/api/activities/:id', async (req, res) => {
+  try {
+    const activity = await Activity.findByIdAndDelete(req.params.id);
+    if (!activity) {
+      return res.status(404).json({ message: 'Activity not found' });
+    }
+    res.json({ message: 'Activity deleted successfully' });
+  } catch (err) {
+    console.error('Error deleting activity:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 // Simple authentication route (placeholder - implement properly in production)
 app.post('/login', (req, res) => {
